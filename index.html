@@ -17,7 +17,7 @@
   --gold:#f5c842;--bg:#0a0a0a;--bg2:#111111;--text:#f0f0e8;--muted:#555;
   --border:#2a2a2a;--purple:#9b59b6;--purple-dim:#1a0a2a;
   --gb:#4fc3f7;--gb-dim:#0a2030;
-  --red:#e74c3c;
+  --red:#e74c3c;--green:#2ecc71;--orange:#e67e22;
   --btn-h:clamp(130px,26vw,190px);
   --title-size:clamp(32px,8vw,54px);
   --money-size:clamp(28px,7vw,48px);
@@ -75,9 +75,12 @@ input,textarea{font-family:inherit}
 .login-toggle a{color:var(--gold);cursor:pointer;text-decoration:none}
 .login-toggle a:hover{text-decoration:underline}
 .login-error{font-size:clamp(10px,2.5vw,12px);color:var(--red);text-align:center;min-height:16px;letter-spacing:1px}
+.login-success{font-size:clamp(10px,2.5vw,12px);color:var(--green);text-align:center;min-height:16px;letter-spacing:1px}
 .login-loading{font-size:clamp(10px,2.5vw,12px);color:var(--muted);letter-spacing:2px;text-align:center}
 .spinner{display:inline-block;width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:8px}
 @keyframes spin{to{transform:rotate(360deg)}}
+.forgot-link{font-size:clamp(9px,2vw,11px);color:var(--muted);cursor:pointer;text-align:right;margin-top:-4px}
+.forgot-link:hover{color:var(--gold)}
 
 /* ════════════════════════════════════
    MAIN GAME LAYOUT
@@ -91,14 +94,12 @@ input,textarea{font-family:inherit}
 #title{font-family:'Bebas Neue',sans-serif;font-size:var(--title-size);letter-spacing:clamp(2px,1vw,5px);color:var(--gold);line-height:1}
 #subtitle{font-size:clamp(7px,1.8vw,10px);color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:1px}
 
-/* avatar in header */
 #header-avatar{cursor:pointer;flex-shrink:0;touch-action:manipulation;text-align:center}
 .hdr-avatar-ring{width:clamp(44px,10vw,58px);height:clamp(44px,10vw,58px);border-radius:50%;border:2px solid var(--gold);background:#1a1a12;position:relative;overflow:hidden;transition:border-color 0.2s,transform 0.15s}
 #header-avatar:hover .hdr-avatar-ring{border-color:var(--gb);transform:scale(1.06)}
 .hdr-avatar-ring .av-layer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(16px,4.5vw,26px);line-height:1}
 .hdr-avatar-label{font-size:clamp(6px,1.4vw,8px);color:var(--muted);letter-spacing:1px;margin-top:2px;text-transform:uppercase}
 
-/* GB pill */
 #gb-pill{display:flex;align-items:center;gap:4px;background:var(--gb-dim);border:1px solid var(--gb);border-radius:20px;padding:5px 9px;cursor:pointer;transition:background 0.15s;touch-action:manipulation;flex-shrink:0}
 #gb-pill:hover{background:#0d3045}
 #gb-amount{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,3vw,17px);color:var(--gb);letter-spacing:1px}
@@ -111,6 +112,23 @@ input,textarea{font-family:inherit}
 #milestone{font-size:clamp(9px,2.2vw,11px);color:var(--gold);letter-spacing:1px;margin-top:4px;min-height:14px}
 #boost-banner{font-size:clamp(8px,2vw,11px);color:var(--gb);letter-spacing:1px;margin-top:2px;min-height:13px}
 
+/* ── ENERGY BAR ── */
+#energy-wrap{text-align:center;margin-top:-2px}
+#energy-bar-outer{width:clamp(160px,40vw,240px);height:14px;background:#1a1a1a;border:1px solid var(--border);border-radius:7px;margin:0 auto;overflow:hidden;position:relative}
+#energy-bar-inner{height:100%;background:linear-gradient(90deg,var(--orange),var(--gold));border-radius:6px;transition:width 0.3s;width:100%}
+#energy-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(10px,2.5vw,13px);color:var(--text);letter-spacing:1px;margin-top:3px}
+#energy-timer{font-size:clamp(8px,1.8vw,10px);color:var(--muted);letter-spacing:1px;min-height:12px}
+#energy-refill-btn{display:none;margin-top:4px;padding:5px 14px;background:var(--gb-dim);border:1px solid var(--gb);color:var(--gb);font-family:'Bebas Neue',sans-serif;font-size:clamp(11px,2.8vw,14px);letter-spacing:2px;cursor:pointer;border-radius:4px;transition:background 0.15s;touch-action:manipulation}
+#energy-refill-btn:hover{background:#0d3045}
+#energy-vip-btn{display:none;margin-top:2px;padding:4px 12px;background:transparent;border:1px solid var(--purple);color:var(--purple);font-size:clamp(8px,2vw,10px);letter-spacing:1px;cursor:pointer;border-radius:4px;transition:background 0.15s;touch-action:manipulation}
+#energy-vip-btn:hover{background:var(--purple-dim)}
+
+/* energy empty overlay on click button */
+#energy-empty-overlay{display:none;position:absolute;inset:0;border-radius:50%;background:rgba(10,10,10,0.85);z-index:5;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+#energy-empty-overlay.visible{display:flex}
+#energy-empty-overlay .eo-icon{font-size:clamp(24px,6vw,36px)}
+#energy-empty-overlay .eo-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(10px,2.8vw,14px);color:var(--orange);letter-spacing:2px}
+
 /* ── CLICK BUTTON ── */
 #click-zone{position:relative;width:var(--btn-h);height:var(--btn-h);margin:0 auto;flex-shrink:0}
 #money-btn{width:100%;height:100%;border-radius:50%;border:3px solid var(--gold);background:#1a1a12;cursor:pointer;font-family:'Bebas Neue',sans-serif;color:var(--gold);letter-spacing:2px;outline:none;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:transform 0.08s,background 0.08s,border-color 0.3s;-webkit-appearance:none;touch-action:manipulation}
@@ -120,10 +138,35 @@ input,textarea{font-family:inherit}
 #money-btn.skin-vip{border-color:var(--gb);color:var(--gb);background:#001020}
 #money-btn.skin-fire{border-color:#ff6b35;color:#ff6b35;background:#1a0800}
 #money-btn.skin-diamond{border-color:#b9f2ff;color:#b9f2ff;background:#080e14}
+#money-btn.no-energy{opacity:0.4;cursor:not-allowed}
 #btn-icon{font-size:clamp(30px,8vw,50px);line-height:1}
 #btn-label{font-size:clamp(10px,2.8vw,13px);letter-spacing:2px}
 .float-num{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,4vw,22px);color:var(--gold);pointer-events:none;animation:floatUp 0.9s ease-out forwards;white-space:nowrap;z-index:10}
 @keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-70px) scale(1.3)}}
+
+/* ── FLASH EVENT BANNER ── */
+#flash-banner{display:none;position:fixed;top:0;left:0;right:0;z-index:7000;padding:8px 16px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,3.5vw,18px);letter-spacing:2px;animation:flashPulse 2s ease-in-out infinite;cursor:pointer}
+#flash-banner.active{display:block}
+@keyframes flashPulse{0%,100%{opacity:1}50%{opacity:0.75}}
+.flash-gold{background:linear-gradient(90deg,#b8860b,var(--gold),#b8860b);color:#0a0a0a}
+.flash-blue{background:linear-gradient(90deg,#1a5276,var(--gb),#1a5276);color:#001020}
+.flash-green{background:linear-gradient(90deg,#145a32,var(--green),#145a32);color:#0a0a0a}
+
+/* ── DAILY DEALS ── */
+#daily-deals{border:1px solid var(--orange);border-radius:8px;padding:10px;background:#1a1000;margin-bottom:8px}
+#daily-deals .dd-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+#daily-deals .dd-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,3.5vw,17px);color:var(--orange);letter-spacing:2px}
+#daily-deals .dd-timer{font-size:clamp(8px,2vw,10px);color:var(--muted);letter-spacing:1px}
+.deal-card{display:flex;align-items:center;gap:8px;padding:8px;border:0.5px solid var(--border);border-radius:6px;background:var(--bg2);margin-bottom:4px;cursor:pointer;transition:border-color 0.15s;touch-action:manipulation}
+.deal-card:hover{border-color:var(--orange)}
+.deal-icon{font-size:clamp(18px,4.5vw,24px);flex-shrink:0}
+.deal-info{flex:1;min-width:0}
+.deal-name{font-size:clamp(9px,2.2vw,11px);font-weight:700;color:var(--text)}
+.deal-desc{font-size:clamp(8px,1.8vw,9px);color:var(--muted);margin-top:1px}
+.deal-prices{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.deal-old{font-family:'Bebas Neue',sans-serif;font-size:clamp(10px,2.5vw,13px);color:var(--muted);text-decoration:line-through}
+.deal-new{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,3.5vw,17px);color:var(--orange)}
+.deal-badge{font-size:clamp(7px,1.6vw,9px);background:var(--orange);color:#0a0a0a;padding:1px 6px;border-radius:3px;font-weight:700;letter-spacing:1px}
 
 /* ── MAIN GRID ── */
 #main-content{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,2vw,16px);width:100%;max-width:700px;margin:0 auto}
@@ -135,6 +178,8 @@ input,textarea{font-family:inherit}
 .upgrade-btn:active:not([disabled]){transform:scale(0.97)}
 .upgrade-btn[disabled]{opacity:0.3;cursor:not-allowed}
 .upgrade-btn.owned{border-color:#2a2a1a}
+.upgrade-btn.locked{border-color:var(--purple);opacity:0.6}
+.upgrade-btn.locked:hover{border-color:var(--gb);opacity:0.8}
 .ug-icon{font-size:clamp(16px,4vw,22px);flex-shrink:0}
 .ug-info{flex:1;min-width:0}
 .ug-name{font-size:clamp(9px,2.5vw,12px);font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -142,6 +187,7 @@ input,textarea{font-family:inherit}
 .ug-right{display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0;gap:1px}
 .ug-cost{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,3.5vw,17px);color:var(--gold)}
 .ug-count{font-size:clamp(8px,2vw,10px);color:var(--muted)}
+.ug-lock{font-size:clamp(8px,2vw,10px);color:var(--purple);letter-spacing:1px}
 
 .achievement{display:flex;align-items:center;gap:8px;padding:clamp(6px,2vw,8px) clamp(8px,2vw,10px);border:0.5px solid #222;border-radius:6px;background:#0d0d0d;margin-bottom:5px;opacity:0.35;transition:opacity 0.4s,border-color 0.4s}
 .achievement.unlocked{opacity:1;border-color:var(--gold)}
@@ -158,6 +204,21 @@ input,textarea{font-family:inherit}
 #logout-btn{font-size:clamp(9px,2vw,11px);color:var(--muted);background:transparent;border:none;cursor:pointer;letter-spacing:2px;padding:4px 8px;text-transform:uppercase}
 #logout-btn:hover{color:var(--red)}
 #sync-status{font-size:clamp(8px,1.8vw,9px);color:var(--muted);letter-spacing:1px;text-align:center;min-height:12px}
+
+/* ── REFERRAL SECTION ── */
+#referral-section{border:1px solid var(--green);border-radius:8px;padding:12px;background:#0a1a0a;text-align:center;width:100%;max-width:400px}
+#referral-section .ref-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,3.5vw,18px);color:var(--green);letter-spacing:2px;margin-bottom:6px}
+#referral-section .ref-desc{font-size:clamp(8px,2vw,10px);color:var(--muted);margin-bottom:8px;line-height:1.4}
+#referral-section .ref-code-wrap{display:flex;align-items:center;gap:6px;justify-content:center}
+#referral-section .ref-code{background:#111;border:1px solid var(--border);border-radius:4px;padding:6px 12px;font-family:'Space Mono',monospace;font-size:clamp(10px,2.5vw,13px);color:var(--green);letter-spacing:2px;user-select:all}
+#referral-section .ref-copy-btn{padding:6px 10px;background:var(--green);color:#0a0a0a;border:none;border-radius:4px;font-family:'Bebas Neue',sans-serif;font-size:clamp(10px,2.5vw,13px);letter-spacing:1px;cursor:pointer}
+#referral-section .ref-count{font-size:clamp(8px,2vw,10px);color:var(--muted);margin-top:6px}
+
+/* ── SEASON BANNER ── */
+#season-banner{border:1px solid var(--purple);border-radius:8px;padding:10px;background:var(--purple-dim);text-align:center;width:100%;max-width:400px}
+#season-banner .season-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,3.5vw,17px);color:var(--purple);letter-spacing:2px}
+#season-banner .season-desc{font-size:clamp(8px,2vw,10px);color:#c39bd3;margin-top:4px;line-height:1.4}
+#season-banner .season-timer{font-size:clamp(9px,2.2vw,11px);color:var(--muted);margin-top:4px;letter-spacing:1px}
 
 /* ── TOAST ── */
 #toast{position:fixed;top:clamp(12px,3vw,20px);left:50%;transform:translateX(-50%) translateY(-90px);background:var(--gold);color:#0a0a0a;font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,3.5vw,18px);letter-spacing:2px;padding:clamp(8px,2vw,10px) clamp(16px,4vw,24px);border-radius:4px;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);z-index:9999;pointer-events:none;white-space:nowrap;max-width:92vw;text-align:center}
@@ -195,7 +256,6 @@ input,textarea{font-family:inherit}
 .pack-bonus{font-size:clamp(8px,1.8vw,10px);color:#4fc3f7aa;margin:2px 0}
 .pack-price{font-size:clamp(10px,2.5vw,13px);color:var(--muted);margin-top:5px}
 .pack-price strong{color:var(--text)}
-.pack-note{font-size:clamp(8px,1.8vw,9px);color:var(--muted);text-align:center;margin-top:8px;line-height:1.5}
 
 .shop-item{display:flex;align-items:center;gap:10px;padding:11px 10px;border:0.5px solid var(--border);border-radius:8px;background:#111;margin-bottom:8px;cursor:pointer;transition:border-color 0.15s,background 0.15s;touch-action:manipulation}
 .shop-item:hover:not([disabled]){border-color:var(--gb);background:#0a1a28}
@@ -217,6 +277,54 @@ input,textarea{font-family:inherit}
 .skin-status.ok{color:var(--gold)}.skin-status.eq{color:var(--gb)}
 
 /* ════════════════════════════════════
+   EMAIL CAPTURE MODAL
+════════════════════════════════════ */
+#email-capture-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9500;align-items:center;justify-content:center;padding:16px}
+#email-capture-overlay.open{display:flex}
+#email-capture-box{background:#0d0d0d;border:1px solid var(--gb);border-radius:12px;width:100%;max-width:380px;padding:24px 20px;text-align:center}
+.ec-icon{font-size:clamp(36px,10vw,50px);margin-bottom:8px}
+.ec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,6vw,30px);color:var(--gb);letter-spacing:3px;margin-bottom:4px}
+.ec-subtitle{font-size:clamp(10px,2.5vw,13px);color:var(--muted);margin-bottom:4px;line-height:1.5}
+.ec-item-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,4vw,20px);color:var(--gold);letter-spacing:2px;margin:8px 0}
+.ec-discount{font-size:clamp(10px,2.5vw,12px);color:var(--green);font-weight:700;letter-spacing:1px;margin-bottom:12px;padding:6px 10px;background:#0a1a0a;border:1px solid var(--green);border-radius:4px;display:inline-block}
+.ec-input{width:100%;padding:12px 16px;background:#111;border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:clamp(12px,3vw,14px);outline:none;transition:border-color 0.2s;margin-top:10px}
+.ec-input:focus{border-color:var(--gb)}
+.ec-input::placeholder{color:var(--muted)}
+.ec-submit{width:100%;padding:12px;background:var(--gb);color:#001020;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,4vw,20px);letter-spacing:3px;border:none;border-radius:6px;cursor:pointer;margin-top:8px;transition:opacity 0.15s}
+.ec-submit:hover{opacity:0.88}
+.ec-submit:disabled{opacity:0.4;cursor:not-allowed}
+.ec-close{background:transparent;border:none;color:var(--muted);font-size:clamp(10px,2.5vw,12px);cursor:pointer;margin-top:10px;letter-spacing:1px;padding:4px}
+.ec-close:hover{color:var(--text)}
+.ec-success{color:var(--green);font-size:clamp(10px,2.5vw,12px);margin-top:8px;letter-spacing:1px;min-height:16px}
+.ec-error{color:var(--red);font-size:clamp(10px,2.5vw,12px);margin-top:8px;letter-spacing:1px;min-height:16px}
+
+/* ════════════════════════════════════
+   DAILY STREAK MODAL
+════════════════════════════════════ */
+#streak-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9000;align-items:center;justify-content:center;padding:16px}
+#streak-overlay.open{display:flex}
+#streak-box{background:#0d0d0d;border:1px solid var(--gold);border-radius:12px;width:100%;max-width:420px;padding:20px 16px;text-align:center}
+.streak-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,6vw,30px);color:var(--gold);letter-spacing:3px;margin-bottom:4px}
+.streak-subtitle{font-size:clamp(9px,2.2vw,11px);color:var(--muted);letter-spacing:1px;margin-bottom:12px}
+.streak-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:14px}
+.streak-day{border:1px solid var(--border);border-radius:8px;padding:8px 2px;text-align:center;background:#111;transition:border-color 0.2s,background 0.2s}
+.streak-day.completed{border-color:var(--gold);background:#1a1a0a}
+.streak-day.today{border-color:var(--green);background:#0a1a0a;animation:streakPulse 1.5s infinite}
+.streak-day.missed{opacity:0.3}
+@keyframes streakPulse{0%,100%{box-shadow:0 0 0 0 rgba(46,204,113,0.4)}50%{box-shadow:0 0 0 4px rgba(46,204,113,0)}}
+.sd-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,3vw,16px);color:var(--muted);letter-spacing:1px}
+.streak-day.completed .sd-num{color:var(--gold)}
+.streak-day.today .sd-num{color:var(--green)}
+.sd-icon{font-size:clamp(14px,3.5vw,20px);margin:3px 0 1px}
+.sd-reward{font-size:clamp(7px,1.6vw,9px);color:var(--muted)}
+.streak-day.completed .sd-reward{color:var(--gold)}
+.streak-claim-btn{padding:10px 28px;background:var(--gold);color:#0a0a0a;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,4vw,20px);letter-spacing:3px;border:none;border-radius:6px;cursor:pointer;transition:opacity 0.15s;touch-action:manipulation}
+.streak-claim-btn:hover{opacity:0.88}
+.streak-claim-btn:disabled{opacity:0.4;cursor:not-allowed}
+.streak-close{background:transparent;border:none;color:var(--muted);font-size:clamp(10px,2.5vw,12px);cursor:pointer;margin-top:8px;letter-spacing:1px;padding:4px}
+.streak-close:hover{color:var(--text)}
+
+/* ════════════════════════════════════
    LEADERBOARD
 ════════════════════════════════════ */
 #lb-modal-box{border:1px solid var(--gold)}
@@ -234,6 +342,7 @@ input,textarea{font-family:inherit}
 .lb-empty{text-align:center;color:var(--muted);font-size:12px;padding:20px;letter-spacing:2px}
 .lb-loading{text-align:center;color:var(--muted);font-size:11px;padding:16px;letter-spacing:2px}
 #lb-my-rank{font-size:clamp(9px,2vw,11px);color:var(--muted);letter-spacing:2px;margin-top:4px}
+.lb-season-info{font-size:clamp(8px,2vw,10px);color:var(--purple);letter-spacing:1px;margin-top:4px}
 
 /* ════════════════════════════════════
    AVATAR MODAL
@@ -277,6 +386,7 @@ input,textarea{font-family:inherit}
 
 <canvas id="bg-canvas"></canvas>
 <div id="toast"></div>
+<div id="flash-banner" onclick="closeFlashBanner()"></div>
 
 <!-- ══════════════════════════════════
      LOGIN SCREEN
@@ -290,7 +400,6 @@ input,textarea{font-family:inherit}
     </div>
     <div class="login-tagline">Click. Invest. Dominate.<br>Compete with players worldwide.</div>
 
-    <!-- Google login -->
     <button class="login-btn google" onclick="loginGoogle()" id="google-btn">
       <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
       Continue with Google
@@ -303,7 +412,9 @@ input,textarea{font-family:inherit}
       <input class="login-input" id="username-in" type="text" placeholder="Username (for leaderboard)" maxlength="20" autocomplete="username" style="display:none">
       <input class="login-input" id="email-in" type="email" placeholder="Email address" autocomplete="email">
       <input class="login-input" id="pass-in" type="password" placeholder="Password (min 6 chars)" autocomplete="current-password">
+      <div class="forgot-link" id="forgot-link" onclick="showForgotPassword()">Forgot password?</div>
       <div class="login-error" id="login-error"></div>
+      <div class="login-success" id="login-success" style="display:none"></div>
       <button class="login-btn primary" id="auth-submit-btn" onclick="submitAuth()">PLAY NOW</button>
       <div class="login-toggle" id="auth-toggle">
         No account? <a onclick="toggleAuthMode()">Sign up free</a>
@@ -312,6 +423,38 @@ input,textarea{font-family:inherit}
 
     <button class="login-btn ghost" onclick="playOffline()">Play offline (no cloud save)</button>
     <div class="login-loading" id="login-loading" style="display:none"><span class="spinner"></span>Connecting...</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     EMAIL CAPTURE MODAL
+══════════════════════════════════ -->
+<div id="email-capture-overlay">
+  <div id="email-capture-box">
+    <div class="ec-icon" id="ec-icon">💎</div>
+    <div class="ec-title" id="ec-title">Coming Soon!</div>
+    <div class="ec-subtitle" id="ec-subtitle">Payments are being set up.</div>
+    <div class="ec-item-name" id="ec-item-name"></div>
+    <div class="ec-discount">🎁 Get Subscribed &amp; Get 50% Discount on Your Next Payment</div>
+    <input class="ec-input" id="ec-email" type="email" placeholder="Enter your email address">
+    <button class="ec-submit" id="ec-submit" onclick="submitEmailCapture()">NOTIFY ME</button>
+    <div class="ec-success" id="ec-success"></div>
+    <div class="ec-error" id="ec-error"></div>
+    <button class="ec-close" onclick="closeEmailCapture()">No thanks, maybe later</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     DAILY STREAK MODAL
+══════════════════════════════════ -->
+<div id="streak-overlay">
+  <div id="streak-box">
+    <div class="streak-title">🔥 Daily Streak</div>
+    <div class="streak-subtitle" id="streak-subtitle">Come back every day for bigger rewards!</div>
+    <div class="streak-days" id="streak-days"></div>
+    <button class="streak-claim-btn" id="streak-claim-btn" onclick="claimStreakReward()">CLAIM REWARD</button>
+    <br>
+    <button class="streak-close" onclick="closeStreak()">Continue playing</button>
   </div>
 </div>
 
@@ -332,12 +475,14 @@ input,textarea{font-family:inherit}
       <button class="modal-tab"        onclick="shopTab('boosts')"  id="stab-boosts">Boosts</button>
       <button class="modal-tab"        onclick="shopTab('skins')"   id="stab-skins">Skins</button>
       <button class="modal-tab"        onclick="shopTab('special')" id="stab-special">Special</button>
+      <button class="modal-tab"        onclick="shopTab('vip')"     id="stab-vip">VIP</button>
     </div>
     <div class="modal-body">
-      <div id="spanel-packs"><div class="section-label">Purchase GoldBars</div><div class="pack-grid" id="pack-grid"></div><p class="pack-note">⚠️ Demo — no real payment processed. Integrate Stripe when going live.</p></div>
-      <div id="spanel-boosts"  style="display:none"><div class="section-label">Active Boosts</div><div id="boosts-list"></div></div>
+      <div id="spanel-packs"><div class="section-label">Purchase GoldBars</div><div class="pack-grid" id="pack-grid"></div></div>
+      <div id="spanel-boosts"  style="display:none"><div class="section-label">Power Boosts</div><div id="boosts-list"></div></div>
       <div id="spanel-skins"   style="display:none"><div class="section-label">Button Skins</div><div class="skins-grid" id="skins-grid"></div></div>
       <div id="spanel-special" style="display:none"><div class="section-label">Special Actions</div><div id="special-list"></div></div>
+      <div id="spanel-vip"     style="display:none"><div class="section-label">VIP Membership</div><div id="vip-content"></div></div>
     </div>
   </div>
 </div>
@@ -351,11 +496,12 @@ input,textarea{font-family:inherit}
       <div>
         <div id="lb-title">🏆 Leaderboard</div>
         <div id="lb-my-rank"></div>
+        <div class="lb-season-info" id="lb-season-info"></div>
       </div>
       <button class="modal-close" onclick="closeLb()">✕</button>
     </div>
     <div class="modal-body">
-      <div class="section-label">Top 50 Players</div>
+      <div class="section-label">Top 50 Players — <span id="lb-season-label">Season 1</span></div>
       <div id="lb-list"><div class="lb-loading"><span class="spinner"></span> Loading...</div></div>
     </div>
   </div>
@@ -435,11 +581,31 @@ input,textarea{font-family:inherit}
     <div id="boost-banner"></div>
   </div>
 
+  <div id="energy-wrap">
+    <div id="energy-bar-outer"><div id="energy-bar-inner"></div></div>
+    <div id="energy-text">⚡ 100/100 Energy</div>
+    <div id="energy-timer"></div>
+    <button id="energy-refill-btn" onclick="openEnergyRefill()">⚡ REFILL ENERGY</button>
+    <button id="energy-vip-btn" onclick="openVipPromo()">👑 Go VIP — Unlimited Energy</button>
+  </div>
+
   <div id="click-zone">
     <button id="money-btn" aria-label="Click to earn money">
       <div id="btn-icon">💰</div>
       <div id="btn-label">CLICK</div>
     </button>
+    <div id="energy-empty-overlay">
+      <div class="eo-icon">⚡</div>
+      <div class="eo-text">OUT OF ENERGY</div>
+    </div>
+  </div>
+
+  <div id="daily-deals">
+    <div class="dd-header">
+      <div class="dd-title">🔥 Today's Deals</div>
+      <div class="dd-timer" id="deals-timer">Refreshes in --:--:--</div>
+    </div>
+    <div id="deals-list"></div>
   </div>
 
   <div id="main-content">
@@ -456,10 +622,30 @@ input,textarea{font-family:inherit}
   <div id="actions">
     <button id="prestige-btn" onclick="prestige()">⚡ PRESTIGE</button>
     <div id="prestige-count"></div>
+
+    <div id="season-banner">
+      <div class="season-title">🏆 Season <span id="season-num">1</span></div>
+      <div class="season-desc">Top 3 earn exclusive avatars! Leaderboard resets monthly.</div>
+      <div class="season-timer" id="season-timer">Ends in --d --h</div>
+    </div>
+
     <div style="display:flex;gap:10px;align-items:center">
       <button id="share-btn" onclick="shareGame()">SHARE &amp; FLEX 🔥</button>
       <button onclick="openLb()" style="padding:clamp(10px,2.5vw,12px) clamp(16px,4vw,22px);background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,3.5vw,18px);letter-spacing:3px;cursor:pointer;border-radius:4px;touch-action:manipulation">🏆 RANKS</button>
     </div>
+
+    <div id="referral-section">
+      <div class="ref-title">🎁 Invite Friends — Earn GoldBars</div>
+      <div class="ref-desc">Share your link. When a friend signs up &amp; earns $10K, you both get 100 GoldBars!</div>
+      <div class="ref-code-wrap">
+        <div class="ref-code" id="ref-code">---</div>
+        <button class="ref-copy-btn" onclick="copyReferral()">COPY</button>
+      </div>
+      <div class="ref-count" id="ref-count">0 referrals</div>
+    </div>
+
+    <button onclick="openStreak()" style="padding:8px 20px;background:transparent;border:1px solid var(--orange);color:var(--orange);font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,3vw,16px);letter-spacing:2px;cursor:pointer;border-radius:4px;touch-action:manipulation">🔥 DAILY STREAK</button>
+
     <div id="sync-status"></div>
     <button id="logout-btn" onclick="doLogout()" style="display:none">Sign out</button>
   </div>
@@ -467,37 +653,33 @@ input,textarea{font-family:inherit}
 
 <script>
 // ════════════════════════════════════════════════════════
-// ⚙️  CONFIG — PASTE YOUR SUPABASE CREDENTIALS HERE
+// CONFIG
 // ════════════════════════════════════════════════════════
-const SUPABASE_URL  = 'https://nhfzdofkbunpkpqtnbzx.supabase.co';   // e.g. https://nhfzdofkbunpkpqtnbzx.supabase.co
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oZnpkb2ZrYnVucGtwcXRuYnp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NzA4OTAsImV4cCI6MjA5NTA0Njg5MH0.ftAmz6KrypWfi2goWZ8Ane-Fnk_31R3gbGS7tGyvv8E'; // from Project Settings → API
+const SUPABASE_URL  = 'https://nhfzdofkbunpkpqtnbzx.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oZnpkb2ZrYnVucGtwcXRuYnp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NzA4OTAsImV4cCI6MjA5NTA0Njg5MH0.ftAmz6KrypWfi2goWZ8Ane-Fnk_31R3gbGS7tGyvv8E';
 
-// ════════════════════════════════════════════════════════
-// SUPABASE CLIENT
-// ════════════════════════════════════════════════════════
 const { createClient } = supabase;
 const sb = (SUPABASE_URL !== 'YOUR_SUPABASE_URL')
   ? createClient(SUPABASE_URL, SUPABASE_ANON)
-  : null;  // offline mode if not configured
+  : null;
 
 let currentUser   = null;
 let isOfflineMode = !sb;
-let authMode      = 'login'; // 'login' | 'signup'
 let isSyncing     = false;
 
 // ════════════════════════════════════════════════════════
 // GAME DATA
 // ════════════════════════════════════════════════════════
 const UPGRADES=[
-  {id:'lemonade',  name:'Lemonade Stand',  icon:'🍋',desc:'Classic hustle',         cost:15,      cps:.1,   cpc:.5  },
-  {id:'blog',      name:'Blog',            icon:'📝',desc:'Passive content income', cost:100,     cps:.5,   cpc:2   },
-  {id:'dropship',  name:'Dropshipping',    icon:'📦',desc:'Low effort, big dreams', cost:400,     cps:3,    cpc:5   },
-  {id:'crypto',    name:'Crypto Wallet',   icon:'🪙',desc:'Number go up',           cost:2000,    cps:15,   cpc:15  },
-  {id:'agency',    name:'Mktg Agency',     icon:'📊',desc:'Sell shovels not gold',  cost:10000,   cps:80,   cpc:50  },
-  {id:'saas',      name:'SaaS Product',    icon:'💻',desc:'Recurring revenue',      cost:50000,   cps:400,  cpc:200 },
-  {id:'realestate',name:'Real Estate',     icon:'🏠',desc:'Rent seeking forever',   cost:200000,  cps:2000, cpc:800 },
-  {id:'vc',        name:'VC Fund',         icon:'🤝',desc:"Fund others' dreams",    cost:1000000, cps:12000,cpc:4000},
-  {id:'island',    name:'Private Island',  icon:'🏝️',desc:'The final flex',         cost:10000000,cps:75000,cpc:25000},
+  {id:'lemonade',  name:'Lemonade Stand',  icon:'🍋',desc:'Classic hustle',         cost:15,      cps:.1,   cpc:.5,   tier:0},
+  {id:'blog',      name:'Blog',            icon:'📝',desc:'Passive content income', cost:100,     cps:.5,   cpc:2,    tier:0},
+  {id:'dropship',  name:'Dropshipping',    icon:'📦',desc:'Low effort, big dreams', cost:400,     cps:3,    cpc:5,    tier:0},
+  {id:'crypto',    name:'Crypto Wallet',   icon:'🪙',desc:'Number go up',           cost:2000,    cps:15,   cpc:15,   tier:0},
+  {id:'agency',    name:'Mktg Agency',     icon:'📊',desc:'Sell shovels not gold',  cost:10000,   cps:80,   cpc:50,   tier:1},
+  {id:'saas',      name:'SaaS Product',    icon:'💻',desc:'Recurring revenue',      cost:50000,   cps:400,  cpc:200,  tier:1},
+  {id:'realestate',name:'Real Estate',     icon:'🏠',desc:'Rent seeking forever',   cost:200000,  cps:2000, cpc:800,  tier:1},
+  {id:'vc',        name:'VC Fund',         icon:'🤝',desc:"Fund others' dreams",    cost:1000000, cps:12000,cpc:4000, tier:1},
+  {id:'island',    name:'Private Island',  icon:'🏝️',desc:'The final flex',         cost:10000000,cps:75000,cpc:25000,tier:1},
 ];
 const ACHIEVEMENTS=[
   {id:'first',    name:'First Dollar',   icon:'🪙',req:s=>s.totalEarned>=1},
@@ -510,6 +692,8 @@ const ACHIEVEMENTS=[
   {id:'prestige1',name:'Prestiged',      icon:'⚡',req:s=>s.prestigeCount>=1},
   {id:'all9',     name:'Empire Builder', icon:'🏆',req:s=>UPGRADES.every(u=>(s.owned[u.id]||0)>=1)},
   {id:'gb100',    name:'GoldBar Whale',  icon:'💎',req:s=>s.gbSpent>=100},
+  {id:'streak7',  name:'7-Day Warrior',  icon:'🔥',req:s=>s.loginStreak>=7},
+  {id:'referral1',name:'Networker',      icon:'🤝',req:s=>s.referralsCount>=1},
 ];
 const MILESTONES=[[1000,'Bought a coffee ☕'],[10000,'Paid rent 🏠'],[100000,'Bought a Tesla 🚗'],[1000000,"MILLIONAIRE! 🤑"],[10000000,"Almost a BILLIONAIRE 🚀"],[1e9,'You broke the game 🌍']];
 const GB_PACKS=[
@@ -569,6 +753,7 @@ const AVATAR_ITEMS={
     {id:'hardhat',name:'Hard Hat', emoji:'⛑️', cost:20},
     {id:'beret',  name:'Beret',    emoji:'🪖', cost:15},
     {id:'halo',   name:'Halo',     emoji:'😇', cost:150},
+    {id:'streak_crown',name:'Streak Crown',emoji:'👑',cost:0,earnedBy:'streak7'},
   ],
   accessory:[
     {id:'none',     name:'None',       emoji:'',   cost:0, free:true},
@@ -586,14 +771,40 @@ const AVATAR_ITEMS={
     {id:'whale',     name:'GB Whale',    emoji:'💎', cost:0, earnedBy:'gb100'},
     {id:'champion',  name:'Champion',    emoji:'🏆', cost:0, earnedBy:'all9'},
     {id:'prestige_b',name:'Prestige',    emoji:'⚡', cost:0, earnedBy:'prestige1'},
+    {id:'streak_b',  name:'Streak Pro',  emoji:'🔥', cost:0, earnedBy:'streak7'},
   ],
 };
 const AVATAR_SLOTS=['bg','body','face','hat','accessory','badge'];
 
+const STREAK_REWARDS=[
+  {day:1,type:'cash',amount:10000,   label:'$10K',  icon:'💵'},
+  {day:2,type:'cash',amount:25000,   label:'$25K',  icon:'💵'},
+  {day:3,type:'cash',amount:50000,   label:'$50K',  icon:'💰'},
+  {day:4,type:'cash',amount:100000,  label:'$100K', icon:'🤑'},
+  {day:5,type:'gb',  amount:50,      label:'50 GB', icon:'💎'},
+  {day:6,type:'cash',amount:500000,  label:'$500K', icon:'🏆'},
+  {day:7,type:'gb',  amount:150,     label:'150 GB',icon:'👑'},
+];
+
+const FLASH_EVENTS=[
+  {id:'gold_rush',  name:'⛏️ GOLD RUSH — 3× Income!',      css:'flash-gold',  mult:3, duration:1800000},
+  {id:'click_frenzy',name:'⚡ CLICK FRENZY — No Energy Cost!',css:'flash-blue',  noEnergy:true,duration:900000},
+  {id:'happy_hour', name:'🍾 HAPPY HOUR — 2× CPS!',         css:'flash-green', cpsMult:2,duration:3600000},
+];
+
+const DAILY_DEAL_POOL=[
+  {name:'Energy Refill',      icon:'⚡',desc:'Instant full energy',             origCost:30, dealCost:15},
+  {name:'2× Boost — 1hr',    icon:'🔥',desc:'Double income for 60 min',        origCost:30, dealCost:12},
+  {name:'50 GoldBars',        icon:'💎',desc:'50 GoldBars pack',                origCost:99, dealCost:49,priceLabel:'$0.49'},
+  {name:'Auto Clicker 30m',   icon:'🤖',desc:'Clicks for you for 30 minutes',  origCost:55, dealCost:22},
+  {name:'Cash Injection',     icon:'💵',desc:'1 hour of passive income now',    origCost:25, dealCost:10},
+  {name:'Crit Clicks 1hr',    icon:'✨',desc:'25% chance for 10× click damage', origCost:45, dealCost:18},
+];
+
 // ════════════════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════════════════
-const SAVE_KEY='getrich_save_v4';
+const SAVE_KEY='getrich_save_v5';
 
 function defaultState(){
   return{
@@ -604,29 +815,347 @@ function defaultState(){
     activePowerups:{},permanentPerks:{},
     avatar:{bg:'none',body:'suit',face:'neutral',hat:'none',accessory:'none',badge:'none'},
     ownedAvatarItems:{bg:['none'],body:['suit'],face:['neutral'],hat:['none'],accessory:['none'],badge:['none']},
-    lastSaved:Date.now()
+    lastSaved:Date.now(),
+    energy:100,maxEnergy:100,lastEnergyUpdate:Date.now(),
+    loginStreak:0,lastLoginDate:null,todayStreakClaimed:false,
+    isVip:false,investTierUnlocked:false,
+    referralCode:'',referralsCount:0,
+    subscribedEmail:'',
+    dailyDealsSeed:0,dailyDealsDate:null,
   };
 }
 
 let state=defaultState();
 
+// ════════════════════════════════════════════════════════
+// ENERGY SYSTEM
+// ════════════════════════════════════════════════════════
+const ENERGY_REGEN_MS=120000;
+
+function regenEnergy(){
+  if(state.isVip){state.energy=state.maxEnergy;return;}
+  const now=Date.now();
+  const elapsed=now-(state.lastEnergyUpdate||now);
+  const gained=Math.floor(elapsed/ENERGY_REGEN_MS);
+  if(gained>0){
+    state.energy=Math.min(state.maxEnergy,state.energy+gained);
+    state.lastEnergyUpdate=now-(elapsed%ENERGY_REGEN_MS);
+  }
+}
+
+function hasEnergy(){
+  if(state.isVip)return true;
+  if(isFlashActive()&&getActiveFlash().noEnergy)return true;
+  return state.energy>0;
+}
+
+function useEnergy(){
+  if(state.isVip)return;
+  if(isFlashActive()&&getActiveFlash().noEnergy)return;
+  state.energy=Math.max(0,state.energy-1);
+  if(state.energy===0)state.lastEnergyUpdate=Date.now();
+}
+
+function updateEnergyDisplay(){
+  regenEnergy();
+  const pct=Math.round((state.energy/state.maxEnergy)*100);
+  document.getElementById('energy-bar-inner').style.width=pct+'%';
+  const vipLabel=state.isVip?' 👑 VIP':'';
+  document.getElementById('energy-text').textContent='⚡ '+state.energy+'/'+state.maxEnergy+' Energy'+vipLabel;
+  const overlay=document.getElementById('energy-empty-overlay');
+  const btn=document.getElementById('money-btn');
+  const refillBtn=document.getElementById('energy-refill-btn');
+  const vipBtn=document.getElementById('energy-vip-btn');
+  if(!hasEnergy()){
+    overlay.classList.add('visible');
+    btn.classList.add('no-energy');
+    refillBtn.style.display='inline-block';
+    vipBtn.style.display='inline-block';
+    const nextIn=ENERGY_REGEN_MS-((Date.now()-(state.lastEnergyUpdate||Date.now()))%ENERGY_REGEN_MS);
+    document.getElementById('energy-timer').textContent='Next ⚡ in '+Math.ceil(nextIn/1000)+'s';
+  }else{
+    overlay.classList.remove('visible');
+    btn.classList.remove('no-energy');
+    refillBtn.style.display='none';
+    vipBtn.style.display='none';
+    document.getElementById('energy-timer').textContent='';
+  }
+}
+
+function openEnergyRefill(){
+  openEmailCapture('⚡','Energy Refill — 30 GoldBars','Instant full energy refill','energy_refill');
+}
+function openVipPromo(){
+  openEmailCapture('👑','VIP Membership — $2.99/mo','Unlimited energy, 2× offline earnings, exclusive badge','vip_subscription');
+}
+
+// ════════════════════════════════════════════════════════
+// DAILY STREAK
+// ════════════════════════════════════════════════════════
+function getTodayStr(){return new Date().toISOString().slice(0,10);}
+function getYesterdayStr(){const d=new Date();d.setDate(d.getDate()-1);return d.toISOString().slice(0,10);}
+
+function checkStreak(){
+  const today=getTodayStr();
+  if(state.lastLoginDate===today)return;
+  const yesterday=getYesterdayStr();
+  if(state.lastLoginDate===yesterday){
+    state.loginStreak++;
+  }else if(state.lastLoginDate!==today){
+    state.loginStreak=1;
+  }
+  state.lastLoginDate=today;
+  state.todayStreakClaimed=false;
+  saveState();
+  setTimeout(()=>openStreak(),800);
+}
+
+function openStreak(){
+  renderStreakDays();
+  document.getElementById('streak-overlay').classList.add('open');
+}
+function closeStreak(){document.getElementById('streak-overlay').classList.remove('open');}
+
+function renderStreakDays(){
+  const container=document.getElementById('streak-days');
+  container.innerHTML='';
+  const currentDay=Math.min(state.loginStreak,7);
+  const claimed=state.todayStreakClaimed;
+  document.getElementById('streak-subtitle').textContent=
+    state.loginStreak>=7?'🎉 Maximum streak! Keep it going!'
+    :'Day '+currentDay+' of 7 — '+(claimed?'Claimed!':'Claim your reward!');
+  for(let i=0;i<7;i++){
+    const r=STREAK_REWARDS[i];
+    const dayNum=i+1;
+    const isCompleted=dayNum<currentDay||(dayNum===currentDay&&claimed);
+    const isToday=dayNum===currentDay&&!claimed;
+    const el=document.createElement('div');
+    el.className='streak-day'+(isCompleted?' completed':isToday?' today':' missed');
+    el.innerHTML=`<div class="sd-num">D${dayNum}</div><div class="sd-icon">${r.icon}</div><div class="sd-reward">${r.label}</div>`;
+    container.appendChild(el);
+  }
+  const btn=document.getElementById('streak-claim-btn');
+  btn.disabled=claimed||currentDay<1;
+  btn.textContent=claimed?'✓ CLAIMED':'CLAIM DAY '+currentDay+' REWARD';
+}
+
+function claimStreakReward(){
+  if(state.todayStreakClaimed)return;
+  const day=Math.min(state.loginStreak,7);
+  const r=STREAK_REWARDS[day-1];
+  if(r.type==='cash'){state.money+=r.amount;state.totalEarned+=r.amount;}
+  else if(r.type==='gb'){state.goldBars+=r.amount;}
+  state.todayStreakClaimed=true;
+  saveState();calcStats();updateMoneyDisplay();renderStreakDays();checkAchievements();
+  showToast('🔥 Day '+day+': '+r.label+' claimed!',r.type==='gb');
+}
+
+// ════════════════════════════════════════════════════════
+// FLASH EVENTS
+// ════════════════════════════════════════════════════════
+let activeFlash=null;let flashEndTime=0;
+
+function isFlashActive(){return activeFlash&&Date.now()<flashEndTime;}
+function getActiveFlash(){return activeFlash;}
+
+function tryTriggerFlash(){
+  if(isFlashActive())return;
+  if(Math.random()<0.008){
+    activeFlash=FLASH_EVENTS[Math.floor(Math.random()*FLASH_EVENTS.length)];
+    flashEndTime=Date.now()+activeFlash.duration;
+    const banner=document.getElementById('flash-banner');
+    banner.className=activeFlash.css+' active';
+    banner.textContent=activeFlash.name+' — '+Math.round(activeFlash.duration/60000)+'m left!';
+    showToast('🎉 '+activeFlash.name,true);
+  }
+}
+
+function updateFlashBanner(){
+  const banner=document.getElementById('flash-banner');
+  if(!isFlashActive()){
+    banner.classList.remove('active');
+    activeFlash=null;
+    return;
+  }
+  const left=flashEndTime-Date.now();
+  const mins=Math.floor(left/60000);
+  const secs=Math.floor((left%60000)/1000);
+  banner.textContent=activeFlash.name+' — '+mins+'m '+secs+'s left!';
+}
+function closeFlashBanner(){/* keep showing, just visual feedback */}
+
+function getFlashIncomeMultiplier(){
+  if(!isFlashActive())return 1;
+  return activeFlash.mult||1;
+}
+function getFlashCpsMultiplier(){
+  if(!isFlashActive())return 1;
+  return activeFlash.cpsMult||1;
+}
+
+// ════════════════════════════════════════════════════════
+// DAILY DEALS
+// ════════════════════════════════════════════════════════
+function getDailyDeals(){
+  const today=getTodayStr();
+  if(state.dailyDealsDate!==today){
+    state.dailyDealsSeed=Math.floor(Math.random()*100000);
+    state.dailyDealsDate=today;
+  }
+  let seed=state.dailyDealsSeed;
+  function seededRandom(){seed=(seed*16807)%2147483647;return(seed-1)/2147483646;}
+  const pool=[...DAILY_DEAL_POOL];
+  const deals=[];
+  for(let i=0;i<3&&pool.length;i++){
+    const idx=Math.floor(seededRandom()*pool.length);
+    deals.push(pool.splice(idx,1)[0]);
+  }
+  return deals;
+}
+
+function renderDailyDeals(){
+  const list=document.getElementById('deals-list');
+  list.innerHTML='';
+  const deals=getDailyDeals();
+  for(const d of deals){
+    const el=document.createElement('div');
+    el.className='deal-card';
+    const discount=Math.round((1-d.dealCost/d.origCost)*100);
+    el.innerHTML=`<div class="deal-icon">${d.icon}</div>
+      <div class="deal-info"><div class="deal-name">${d.name} <span class="deal-badge">-${discount}%</span></div><div class="deal-desc">${d.desc}</div></div>
+      <div class="deal-prices"><div class="deal-old">💎${d.origCost}</div><div class="deal-new">💎${d.dealCost}</div></div>`;
+    el.addEventListener('click',()=>{
+      openEmailCapture(d.icon,d.name+' — Daily Deal','Save '+discount+'%! '+d.desc,'daily_deal_'+d.name);
+    });
+    list.appendChild(el);
+  }
+  updateDealsTimer();
+}
+
+function updateDealsTimer(){
+  const now=new Date();
+  const tomorrow=new Date(now);
+  tomorrow.setUTCHours(24,0,0,0);
+  const diff=tomorrow-now;
+  const h=Math.floor(diff/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+  document.getElementById('deals-timer').textContent=
+    'Refreshes in '+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+// ════════════════════════════════════════════════════════
+// SEASONS / PRESTIGE LEAGUES
+// ════════════════════════════════════════════════════════
+function getSeasonInfo(){
+  const now=new Date();
+  const seasonStart=new Date(now.getFullYear(),now.getMonth(),1);
+  const seasonEnd=new Date(now.getFullYear(),now.getMonth()+1,1);
+  const num=now.getFullYear()*12+now.getMonth()-2025*12+1;
+  const remaining=seasonEnd-now;
+  const days=Math.floor(remaining/86400000);
+  const hours=Math.floor((remaining%86400000)/3600000);
+  return{num,days,hours,end:seasonEnd};
+}
+
+function updateSeasonDisplay(){
+  const s=getSeasonInfo();
+  document.getElementById('season-num').textContent=s.num;
+  document.getElementById('season-timer').textContent='Ends in '+s.days+'d '+s.hours+'h';
+  document.getElementById('lb-season-label').textContent='Season '+s.num;
+  const info=document.getElementById('lb-season-info');
+  if(info)info.textContent='Season '+s.num+' — resets in '+s.days+' days';
+}
+
+// ════════════════════════════════════════════════════════
+// REFERRAL SYSTEM
+// ════════════════════════════════════════════════════════
+function ensureReferralCode(){
+  if(!state.referralCode){
+    const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code='';for(let i=0;i<8;i++)code+=chars[Math.floor(Math.random()*chars.length)];
+    state.referralCode=code;
+  }
+}
+function updateReferralDisplay(){
+  ensureReferralCode();
+  document.getElementById('ref-code').textContent=state.referralCode;
+  document.getElementById('ref-count').textContent=state.referralsCount+' referral'+(state.referralsCount!==1?'s':'');
+}
+function copyReferral(){
+  const link=window.location.origin+window.location.pathname+'?ref='+state.referralCode;
+  navigator.clipboard.writeText(link).then(()=>showToast('📋 Referral link copied!'));
+}
+
+// ════════════════════════════════════════════════════════
+// EMAIL CAPTURE
+// ════════════════════════════════════════════════════════
+let emailCaptureSource='';
+
+function openEmailCapture(icon,title,subtitle,source){
+  emailCaptureSource=source||'general';
+  document.getElementById('ec-icon').textContent=icon||'💎';
+  document.getElementById('ec-title').textContent=title||'Coming Soon!';
+  document.getElementById('ec-subtitle').textContent=subtitle||'Payments are being set up.';
+  document.getElementById('ec-item-name').textContent='';
+  document.getElementById('ec-email').value=state.subscribedEmail||'';
+  document.getElementById('ec-success').textContent='';
+  document.getElementById('ec-error').textContent='';
+  document.getElementById('ec-submit').disabled=false;
+  document.getElementById('email-capture-overlay').classList.add('open');
+}
+function closeEmailCapture(){document.getElementById('email-capture-overlay').classList.remove('open');}
+document.getElementById('email-capture-overlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('email-capture-overlay'))closeEmailCapture();
+});
+
+async function submitEmailCapture(){
+  const email=document.getElementById('ec-email').value.trim();
+  if(!email||!email.includes('@')||!email.includes('.')){
+    document.getElementById('ec-error').textContent='Please enter a valid email address.';
+    return;
+  }
+  document.getElementById('ec-submit').disabled=true;
+  document.getElementById('ec-error').textContent='';
+  state.subscribedEmail=email;
+  saveState();
+
+  if(sb){
+    try{
+      await sb.from('email_subscribers').upsert({
+        email:email,
+        source:emailCaptureSource,
+        user_id:currentUser?currentUser.id:null
+      },{onConflict:'email'});
+    }catch(e){/* silently continue */}
+  }
+
+  document.getElementById('ec-success').textContent='✅ You\'re on the list! We\'ll email you with 50% off when payments go live.';
+  showToast('📧 Subscribed! 50% discount reserved.',true);
+  setTimeout(closeEmailCapture,2500);
+}
+
+// ════════════════════════════════════════════════════════
+// OFFLINE INCOME
+// ════════════════════════════════════════════════════════
 function applyOfflineIncome(s){
   const cap=s.permanentPerks&&s.permanentPerks['boost_offline']?86400:14400;
   const elapsed=Math.min((Date.now()-(s.lastSaved||Date.now()))/1000,cap);
   if(elapsed>5&&s.cps>0){
-    const off=elapsed*s.cps;
+    const off=elapsed*s.cps*(s.isVip?2:1);
     s.money+=off;s.totalEarned+=off;
     setTimeout(()=>showToast('💤 While away: +'+fmt(off)+' earned!'),1000);
   }
   return s;
 }
 
-// local save (cache)
+// ════════════════════════════════════════════════════════
+// SAVE / LOAD
+// ════════════════════════════════════════════════════════
 function saveLocal(){
   try{state.lastSaved=Date.now();localStorage.setItem(SAVE_KEY,JSON.stringify(state));}catch(e){}
 }
 
-// cloud save
 async function saveCloud(){
   if(!sb||!currentUser||isSyncing)return;
   isSyncing=true;setSyncStatus('saving...');
@@ -653,20 +1182,38 @@ async function loadCloud(){
     const{data,error}=await sb.from('player_saves').select('state,username').eq('user_id',currentUser.id).single();
     if(error||!data)return false;
     state=data.state;
-    if(!state.ownedAvatarItems)state.ownedAvatarItems=defaultState().ownedAvatarItems;
-    for(const slot of AVATAR_SLOTS){if(!state.ownedAvatarItems[slot])state.ownedAvatarItems[slot]=[slot==='body'?'suit':slot==='face'?'neutral':'none'];}
-    if(!state.activePowerups)state.activePowerups={};
-    if(!state.permanentPerks)state.permanentPerks={};
-    if(!state.avatar)state.avatar=defaultState().avatar;
+    migrateState();
     applyOfflineIncome(state);
     return true;
   }catch(e){return false;}
 }
 
+function migrateState(){
+  const d=defaultState();
+  if(state.energy===undefined)state.energy=d.energy;
+  if(state.maxEnergy===undefined)state.maxEnergy=d.maxEnergy;
+  if(state.lastEnergyUpdate===undefined)state.lastEnergyUpdate=Date.now();
+  if(state.loginStreak===undefined)state.loginStreak=0;
+  if(state.lastLoginDate===undefined)state.lastLoginDate=null;
+  if(state.todayStreakClaimed===undefined)state.todayStreakClaimed=false;
+  if(state.isVip===undefined)state.isVip=false;
+  if(state.investTierUnlocked===undefined)state.investTierUnlocked=false;
+  if(state.referralCode===undefined)state.referralCode='';
+  if(state.referralsCount===undefined)state.referralsCount=0;
+  if(state.subscribedEmail===undefined)state.subscribedEmail='';
+  if(state.dailyDealsSeed===undefined)state.dailyDealsSeed=0;
+  if(state.dailyDealsDate===undefined)state.dailyDealsDate=null;
+  if(!state.ownedAvatarItems)state.ownedAvatarItems=defaultState().ownedAvatarItems;
+  for(const slot of AVATAR_SLOTS){if(!state.ownedAvatarItems[slot])state.ownedAvatarItems[slot]=[slot==='body'?'suit':slot==='face'?'neutral':'none'];}
+  if(!state.activePowerups)state.activePowerups={};
+  if(!state.permanentPerks)state.permanentPerks={};
+  if(!state.avatar)state.avatar=defaultState().avatar;
+}
+
 function setSyncStatus(msg){const el=document.getElementById('sync-status');if(el)el.textContent=msg;}
 
 // ════════════════════════════════════════════════════════
-// AUTH — LOGIN SCREEN
+// AUTH
 // ════════════════════════════════════════════════════════
 let authModeIsSignup=false;
 
@@ -679,6 +1226,8 @@ function toggleAuthMode(){
     :'No account? <a onclick="toggleAuthMode()">Sign up free</a>';
   document.getElementById('pass-in').setAttribute('autocomplete',authModeIsSignup?'new-password':'current-password');
   document.getElementById('login-error').textContent='';
+  document.getElementById('login-success').style.display='none';
+  document.getElementById('forgot-link').style.display=authModeIsSignup?'none':'';
 }
 
 async function loginGoogle(){
@@ -713,10 +1262,30 @@ async function submitAuth(){
   }
 }
 
+async function showForgotPassword(){
+  if(!sb){showLoginError('Configure Supabase credentials first.');return;}
+  const email=document.getElementById('email-in').value.trim();
+  if(!email){showLoginError('Enter your email address above first.');return;}
+  setLoginLoading(true);
+  try{
+    const{error}=await sb.auth.resetPasswordForEmail(email,{
+      redirectTo:window.location.href
+    });
+    if(error)throw error;
+    document.getElementById('login-error').textContent='';
+    const successEl=document.getElementById('login-success');
+    successEl.textContent='✅ Password reset email sent! Check your inbox.';
+    successEl.style.display='block';
+  }catch(e){
+    showLoginError(e.message||'Could not send reset email.');
+  }
+  setLoginLoading(false);
+}
+
 function playOffline(){
   isOfflineMode=true;
   const raw=localStorage.getItem(SAVE_KEY);
-  if(raw)try{state=applyOfflineIncome(JSON.parse(raw));}catch(e){}
+  if(raw)try{state=JSON.parse(raw);migrateState();applyOfflineIncome(state);}catch(e){}
   bootGame();
 }
 
@@ -734,6 +1303,7 @@ async function doLogout(){
 
 function showLoginError(msg){
   document.getElementById('login-error').textContent=msg;
+  document.getElementById('login-success').style.display='none';
   setLoginLoading(false);
 }
 function setLoginLoading(on){
@@ -746,9 +1316,8 @@ async function afterLogin(){
   setLoginLoading(true);
   const loaded=await loadCloud();
   if(!loaded){
-    // new player — try migrating local save
     const raw=localStorage.getItem(SAVE_KEY);
-    if(raw)try{state=applyOfflineIncome(JSON.parse(raw));}catch(e){}
+    if(raw)try{state=JSON.parse(raw);migrateState();applyOfflineIncome(state);}catch(e){}
     else state=defaultState();
   }
   if(currentUser&&state.username==='')
@@ -757,7 +1326,6 @@ async function afterLogin(){
 }
 
 async function initAuth(){
-  // Check for existing session (handles OAuth redirect)
   if(!sb){bootGame();return;}
   setLoginLoading(true);
   const{data:{session}}=await sb.auth.getSession();
@@ -776,6 +1344,7 @@ function bootGame(){
   document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('app').classList.add('visible');
   if(currentUser)document.getElementById('logout-btn').style.display='block';
+  regenEnergy();
   calcStats();
   renderUpgrades();
   renderAchievements();
@@ -783,6 +1352,14 @@ function bootGame(){
   checkAvatarAwards();
   refreshAvatarDisplays();
   updateMoneyDisplay();
+  updateEnergyDisplay();
+  renderDailyDeals();
+  updateSeasonDisplay();
+  updateReferralDisplay();
+  checkStreak();
+
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('ref'))localStorage.setItem('getrich_referrer',params.get('ref'));
 }
 
 // ════════════════════════════════════════════════════════
@@ -792,6 +1369,7 @@ async function openLb(){
   document.getElementById('lb-overlay').classList.add('open');
   document.getElementById('lb-list').innerHTML='<div class="lb-loading"><span class="spinner"></span> Loading...</div>';
   document.getElementById('lb-my-rank').textContent='';
+  updateSeasonDisplay();
 
   if(!sb){
     document.getElementById('lb-list').innerHTML='<div class="lb-empty">Sign in to see the global leaderboard</div>';
@@ -820,9 +1398,7 @@ function renderLb(rows){
     el.innerHTML=`
       <div class="lb-rank${i<3?' top3':''}">${['🥇','🥈','🥉'][i]||('#'+(i+1))}</div>
       <div class="lb-avatar-mini">${buildMiniAvatar(av)}</div>
-      <div class="lb-info">
-        <div class="lb-name">${escHtml(row.username||'Anonymous')}</div>
-      </div>
+      <div class="lb-info"><div class="lb-name">${escHtml(row.username||'Anonymous')}</div></div>
       <div class="lb-score">${fmt(row.total_earned||0)}</div>`;
     list.appendChild(el);
   });
@@ -830,9 +1406,7 @@ function renderLb(rows){
   else if(currentUser)document.getElementById('lb-my-rank').textContent='Keep earning to appear here!';
 }
 
-function safeParseAvatar(json){
-  try{return json?JSON.parse(json):{};}catch(e){return{};}
-}
+function safeParseAvatar(json){try{return json?JSON.parse(json):{};}catch(e){return{};}}
 
 function buildMiniAvatar(av){
   return AVATAR_SLOTS.map(slot=>{
@@ -853,6 +1427,7 @@ function getBoostMultiplier(){
   const now=Date.now();let m=1;
   if((state.activePowerups.boost_2x||0)>now)m*=2;
   if((state.activePowerups.boost_5x||0)>now)m*=5;
+  m*=getFlashIncomeMultiplier();
   return m;
 }
 function hasCritBoost(){return(state.activePowerups.boost_crit||0)>Date.now();}
@@ -885,7 +1460,8 @@ function fmtTime(ms){const s=Math.ceil(ms/1000);return s<60?s+'s':Math.ceil(s/60
 // ════════════════════════════════════════════════════════
 function updateMoneyDisplay(){
   document.getElementById('money').textContent=fmt(state.money);
-  document.getElementById('per-sec').textContent='+'+fmt(state.cps*getBoostMultiplier())+'/sec passive income';
+  const totalMult=getBoostMultiplier()*getFlashCpsMultiplier();
+  document.getElementById('per-sec').textContent='+'+fmt(state.cps*totalMult)+'/sec passive income';
   let ms='';for(const m of MILESTONES)if(state.totalEarned>=m[0])ms=m[1];
   document.getElementById('milestone').textContent=ms;
   const now=Date.now();const bb=[];
@@ -894,6 +1470,7 @@ function updateMoneyDisplay(){
   if((state.activePowerups.boost_crit||0)>now)bb.push('✨Crits '+fmtTime(state.activePowerups.boost_crit-now));
   if((state.activePowerups.reset_costs||0)>now)bb.push('🏷️50%off '+fmtTime(state.activePowerups.reset_costs-now));
   if((state.activePowerups.auto_click||0)>now)bb.push('🤖Auto '+fmtTime(state.activePowerups.auto_click-now));
+  if(isFlashActive())bb.push(activeFlash.name.slice(0,20));
   document.getElementById('boost-banner').textContent=bb.join(' · ');
   document.getElementById('gb-amount').textContent=state.goldBars;
   const mg=document.getElementById('modal-gb');if(mg)mg.textContent=state.goldBars;
@@ -906,26 +1483,43 @@ function updateMoneyDisplay(){
   }
   updateUpgradeAffordability();
 }
+
 function updateUpgradeAffordability(){
   for(const u of UPGRADES){
     const btn=document.getElementById('ubtn-'+u.id);if(!btn)continue;
+    if(u.tier===1&&!state.investTierUnlocked){btn.disabled=true;continue;}
     const cost=getUpgradeCost(u);btn.disabled=state.money<cost;
     const ce=btn.querySelector('.ug-cost');if(ce)ce.textContent=fmt(cost);
   }
 }
+
 function renderUpgrades(){
   const list=document.getElementById('upgrades-list');list.innerHTML='';
   for(const u of UPGRADES){
     const cnt=state.owned[u.id]||0,cost=getUpgradeCost(u);
+    const isLocked=u.tier===1&&!state.investTierUnlocked;
     const btn=document.createElement('button');
-    btn.className='upgrade-btn'+(cnt>0?' owned':'');btn.id='ubtn-'+u.id;btn.disabled=state.money<cost;
-    btn.innerHTML=`<div class="ug-icon">${u.icon}</div>
-      <div class="ug-info"><div class="ug-name">${u.name}</div><div class="ug-desc">${u.desc}</div></div>
-      <div class="ug-right"><div class="ug-cost">${fmt(cost)}</div><div class="ug-count">${cnt>0?'x'+cnt:''}</div></div>`;
-    btn.addEventListener('click',()=>buyUpgrade(u.id));
+    btn.className='upgrade-btn'+(cnt>0?' owned':'')+(isLocked?' locked':'');
+    btn.id='ubtn-'+u.id;
+    btn.disabled=isLocked||state.money<cost;
+    if(isLocked){
+      btn.innerHTML=`<div class="ug-icon">🔒</div>
+        <div class="ug-info"><div class="ug-name">${u.name}</div><div class="ug-desc">${u.desc}</div></div>
+        <div class="ug-right"><div class="ug-lock">EXECUTIVE PACK</div><div class="ug-count">Unlock to invest</div></div>`;
+      btn.addEventListener('click',()=>{
+        openEmailCapture('🔓','Executive Pack — Unlock Premium Investments',
+          'Unlock Agency, SaaS, Real Estate, VC Fund & Private Island forever!','executive_pack');
+      });
+    }else{
+      btn.innerHTML=`<div class="ug-icon">${u.icon}</div>
+        <div class="ug-info"><div class="ug-name">${u.name}</div><div class="ug-desc">${u.desc}</div></div>
+        <div class="ug-right"><div class="ug-cost">${fmt(cost)}</div><div class="ug-count">${cnt>0?'x'+cnt:''}</div></div>`;
+      btn.addEventListener('click',()=>buyUpgrade(u.id));
+    }
     list.appendChild(btn);
   }
 }
+
 function renderAchievements(){
   const list=document.getElementById('achievements-list');list.innerHTML='';
   for(const a of ACHIEVEMENTS){
@@ -936,6 +1530,7 @@ function renderAchievements(){
     list.appendChild(el);
   }
 }
+
 function checkAchievements(){
   for(const a of ACHIEVEMENTS){
     if(!state.achievements[a.id]&&a.req(state)){
@@ -949,7 +1544,9 @@ function checkAchievements(){
 }
 function applySkin(){
   const sk=SKINS.find(s=>s.id===state.equippedSkin)||SKINS[0];
-  document.getElementById('money-btn').className=sk.css||'';
+  const btn=document.getElementById('money-btn');
+  btn.className=sk.css||'';
+  if(!hasEnergy())btn.classList.add('no-energy');
   document.getElementById('btn-icon').textContent=sk.btnIcon||'💰';
 }
 
@@ -1077,7 +1674,7 @@ function confirmAvatarBuy(){
 }
 
 // ════════════════════════════════════════════════════════
-// SHOP
+// SHOP (with email capture for all paid items)
 // ════════════════════════════════════════════════════════
 let curShopTab='packs';
 function openShop(){document.getElementById('shop-overlay').classList.add('open');renderShopTab(curShopTab);}
@@ -1086,9 +1683,9 @@ document.getElementById('shop-overlay').addEventListener('click',e=>{if(e.target
 
 function shopTab(t){
   curShopTab=t;
-  ['packs','boosts','skins','special'].forEach(x=>{
-    document.getElementById('spanel-'+x).style.display=x===t?'':'none';
-    document.getElementById('stab-'+x).classList.toggle('active',x===t);
+  ['packs','boosts','skins','special','vip'].forEach(x=>{
+    const panel=document.getElementById('spanel-'+x);if(panel)panel.style.display=x===t?'':'none';
+    const tab=document.getElementById('stab-'+x);if(tab)tab.classList.toggle('active',x===t);
   });
   renderShopTab(t);
 }
@@ -1098,7 +1695,9 @@ function renderShopTab(t){
   else if(t==='boosts')renderBoosts();
   else if(t==='skins')renderSkinsShop();
   else if(t==='special')renderSpecial();
+  else if(t==='vip')renderVip();
 }
+
 function renderPacks(){
   const g=document.getElementById('pack-grid');g.innerHTML='';
   for(const p of GB_PACKS){
@@ -1108,13 +1707,12 @@ function renderPacks(){
       <div class="pack-bonus">${p.bonus||'&nbsp;'}</div>
       <div class="pack-price"><strong>${p.price}</strong></div>`;
     c.addEventListener('click',()=>{
-      const total=p.bars+(parseInt(p.bonus)||0);
-      state.goldBars+=total;saveState();updateMoneyDisplay();renderShopTab(curShopTab);
-      showToast('💎 '+total+' GoldBars added! (Demo)',true);
+      openEmailCapture('💎',p.bars+' GoldBars — '+p.price,'Get '+p.bars+' GoldBars'+(p.bonus?' '+p.bonus:''),'pack_'+p.id);
     });
     g.appendChild(c);
   }
 }
+
 function renderBoosts(){
   const list=document.getElementById('boosts-list');list.innerHTML='';
   const now=Date.now();
@@ -1129,16 +1727,20 @@ function renderBoosts(){
       <div class="si-info"><div class="si-name">${b.name}</div><div class="si-desc">${b.desc}</div>${sub}</div>
       <div class="si-cost">💎${b.cost}</div>`;
     if(!owned)el.addEventListener('click',()=>{
-      if(state.goldBars<b.cost){showToast('❌ Not enough GoldBars!',false,true);return;}
-      state.goldBars-=b.cost;state.gbSpent+=b.cost;
-      if(b.permanent)state.permanentPerks[b.id]=true;
-      else{const n2=Date.now();state.activePowerups[b.id]=Math.max(state.activePowerups[b.id]||n2,n2)+b.duration*1000;}
-      saveState();calcStats();updateMoneyDisplay();renderBoosts();checkAchievements();
-      showToast('⚡ '+b.name+' activated!',true);
+      if(state.goldBars>=b.cost){
+        state.goldBars-=b.cost;state.gbSpent+=b.cost;
+        if(b.permanent)state.permanentPerks[b.id]=true;
+        else{const n2=Date.now();state.activePowerups[b.id]=Math.max(state.activePowerups[b.id]||n2,n2)+b.duration*1000;}
+        saveState();calcStats();updateMoneyDisplay();renderBoosts();checkAchievements();
+        showToast('⚡ '+b.name+' activated!',true);
+      }else{
+        openEmailCapture(b.icon,b.name+' — '+b.cost+' GoldBars',b.desc,'boost_'+b.id);
+      }
     });
     list.appendChild(el);
   }
 }
+
 function renderSkinsShop(){
   const g=document.getElementById('skins-grid');g.innerHTML='';
   for(const sk of SKINS){
@@ -1151,16 +1753,23 @@ function renderSkinsShop(){
     c.innerHTML=`<div class="skin-preview">${sk.btnIcon||sk.icon}</div><div class="skin-name">${sk.name}</div>${s}`;
     c.addEventListener('click',()=>{
       if(equipped)return;
-      if(!owned){
-        if(state.goldBars<sk.cost){showToast('❌ Not enough GoldBars!',false,true);return;}
-        state.goldBars-=sk.cost;state.gbSpent+=sk.cost;state.ownedSkins.push(sk.id);
+      if(owned){
+        state.equippedSkin=sk.id;applySkin();saveState();renderSkinsShop();updateMoneyDisplay();
+        showToast('🎨 '+sk.name+' skin equipped!',true);
+        return;
       }
-      state.equippedSkin=sk.id;applySkin();saveState();checkAchievements();renderSkinsShop();updateMoneyDisplay();
-      showToast('🎨 '+sk.name+' skin equipped!',true);
+      if(state.goldBars>=sk.cost){
+        state.goldBars-=sk.cost;state.gbSpent+=sk.cost;state.ownedSkins.push(sk.id);
+        state.equippedSkin=sk.id;applySkin();saveState();checkAchievements();renderSkinsShop();updateMoneyDisplay();
+        showToast('🎨 '+sk.name+' skin equipped!',true);
+      }else{
+        openEmailCapture(sk.btnIcon||sk.icon,sk.name+' Skin — '+sk.cost+' GoldBars','Exclusive button skin','skin_'+sk.id);
+      }
     });
     g.appendChild(c);
   }
 }
+
 function renderSpecial(){
   const list=document.getElementById('special-list');list.innerHTML='';
   for(const sp of SPECIAL_ACTIONS){
@@ -1169,34 +1778,64 @@ function renderSpecial(){
       <div class="si-info"><div class="si-name">${sp.name}</div><div class="si-desc">${sp.desc}</div></div>
       <div class="si-cost">💎${sp.cost}</div>`;
     el.addEventListener('click',()=>{
-      if(state.goldBars<sp.cost){showToast('❌ Not enough GoldBars!',false,true);return;}
-      state.goldBars-=sp.cost;state.gbSpent+=sp.cost;
-      if(sp.id==='insta_prestige'){
-        state.prestigeCount++;state.prestigeMult=1+state.prestigeCount*.5;
-        state.money=0;state.totalEarned=0;state.owned={};
-        calcStats();renderUpgrades();renderAchievements();
-        showToast('⚡ INSTANT PRESTIGE! '+Math.round(state.prestigeMult*100)+'%!',true);
-      }else if(sp.id==='reset_costs'){
-        state.activePowerups['reset_costs']=Date.now()+600000;renderUpgrades();
-        showToast('🏷️ 50% sale — 10 min!',true);
-      }else if(sp.id==='gb_money'){
-        const b=state.cps*3600;state.money+=b;state.totalEarned+=b;
-        showToast('💵 +'+fmt(b)+' injected!',true);
-      }else if(sp.id==='auto_click'){
-        state.activePowerups['auto_click']=Date.now()+(sp.duration*1000);
-        showToast('🤖 Auto-clicker active 1 hr!',true);
+      if(state.goldBars>=sp.cost){
+        state.goldBars-=sp.cost;state.gbSpent+=sp.cost;
+        if(sp.id==='insta_prestige'){
+          state.prestigeCount++;state.prestigeMult=1+state.prestigeCount*.5;
+          state.money=0;state.totalEarned=0;state.owned={};
+          calcStats();renderUpgrades();renderAchievements();
+          showToast('⚡ INSTANT PRESTIGE! '+Math.round(state.prestigeMult*100)+'%!',true);
+        }else if(sp.id==='reset_costs'){
+          state.activePowerups['reset_costs']=Date.now()+600000;renderUpgrades();
+          showToast('🏷️ 50% sale — 10 min!',true);
+        }else if(sp.id==='gb_money'){
+          const b=state.cps*3600;state.money+=b;state.totalEarned+=b;
+          showToast('💵 +'+fmt(b)+' injected!',true);
+        }else if(sp.id==='auto_click'){
+          state.activePowerups['auto_click']=Date.now()+(sp.duration*1000);
+          showToast('🤖 Auto-clicker active 1 hr!',true);
+        }
+        saveState();updateMoneyDisplay();checkAchievements();renderShopTab(curShopTab);
+      }else{
+        openEmailCapture(sp.icon,sp.name+' — '+sp.cost+' GoldBars',sp.desc,'special_'+sp.id);
       }
-      saveState();updateMoneyDisplay();checkAchievements();renderShopTab(curShopTab);
     });
     list.appendChild(el);
   }
+}
+
+function renderVip(){
+  const content=document.getElementById('vip-content');
+  content.innerHTML=`
+    <div style="text-align:center;padding:10px 0">
+      <div style="font-size:48px;margin-bottom:8px">👑</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,6vw,32px);color:var(--gold);letter-spacing:3px">VIP MEMBERSHIP</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4.5vw,24px);color:var(--muted);letter-spacing:2px;margin:4px 0">$2.99 / month</div>
+      <div style="margin:14px 0;text-align:left;font-size:clamp(10px,2.5vw,13px);line-height:2;color:var(--text)">
+        ⚡ <strong>Unlimited Energy</strong> — Click forever, no limits<br>
+        💤 <strong>2× Offline Earnings</strong> — Earn while you sleep<br>
+        👑 <strong>VIP Badge</strong> — Show off on the leaderboard<br>
+        🎨 <strong>Exclusive VIP Skin</strong> — Premium button design<br>
+        💎 <strong>100 GoldBars/month</strong> — Monthly bonus<br>
+        🏷️ <strong>10% Shop Discount</strong> — On all future purchases
+      </div>
+      <button onclick="openEmailCapture('👑','VIP Membership — \\$2.99/mo','Unlimited energy, 2× offline earnings, VIP badge & more','vip_subscription')"
+        style="width:100%;padding:14px;background:var(--gold);color:#0a0a0a;font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4.5vw,22px);letter-spacing:3px;border:none;border-radius:8px;cursor:pointer;touch-action:manipulation">
+        ${state.isVip?'✓ VIP ACTIVE':'GET VIP ACCESS'}
+      </button>
+    </div>`;
 }
 
 // ════════════════════════════════════════════════════════
 // CORE ACTIONS
 // ════════════════════════════════════════════════════════
 function buyUpgrade(id){
-  const u=UPGRADES.find(x=>x.id===id),cost=getUpgradeCost(u);
+  const u=UPGRADES.find(x=>x.id===id);
+  if(u.tier===1&&!state.investTierUnlocked){
+    openEmailCapture('🔓','Executive Pack','Unlock premium investments','executive_pack');
+    return;
+  }
+  const cost=getUpgradeCost(u);
   if(state.money<cost)return;
   state.money-=cost;state.owned[id]=(state.owned[id]||0)+1;
   calcStats();renderUpgrades();updateMoneyDisplay();checkAchievements();
@@ -1236,12 +1875,17 @@ function shareGame(){
 // ════════════════════════════════════════════════════════
 const moneyBtn=document.getElementById('money-btn');
 function handleClick(cx,cy){
+  if(!hasEnergy()){
+    showToast('⚡ Out of energy! Wait or refill.',false,true);
+    return;
+  }
+  useEnergy();
   state.totalClicks++;
   const mult=getBoostMultiplier();
   let earned=state.cpc*mult;
   if(hasCritBoost()&&Math.random()<.25){earned*=10;showToast('✨ CRITICAL HIT! '+fmt(earned));}
   spawnFloat(earned,cx,cy);state.money+=earned;state.totalEarned+=earned;
-  updateMoneyDisplay();checkAchievements();
+  updateMoneyDisplay();updateEnergyDisplay();checkAchievements();
 }
 moneyBtn.addEventListener('click',e=>handleClick(e.clientX,e.clientY));
 moneyBtn.addEventListener('touchstart',e=>{e.preventDefault();const t=e.changedTouches[0];handleClick(t.clientX,t.clientY);},{passive:false});
@@ -1251,27 +1895,38 @@ moneyBtn.addEventListener('touchstart',e=>{e.preventDefault();const t=e.changedT
 // ════════════════════════════════════════════════════════
 setInterval(()=>{
   if(state.cps<=0)return;
-  const tick=state.cps*getBoostMultiplier()/20;
+  const tick=state.cps*getBoostMultiplier()*getFlashCpsMultiplier()/20;
   state.money+=tick;state.totalEarned+=tick;updateMoneyDisplay();checkAchievements();
 },50);
 
 setInterval(()=>{
   if(!hasAutoClick())return;
+  if(!hasEnergy())return;
+  useEnergy();
   const zone=document.getElementById('click-zone'),rect=zone.getBoundingClientRect();
   state.totalClicks++;const earned=state.cpc*getBoostMultiplier();
   state.money+=earned;state.totalEarned+=earned;
   spawnFloat(earned,rect.left+rect.width/2,rect.top+rect.height/2);
-  updateMoneyDisplay();checkAchievements();
+  updateMoneyDisplay();updateEnergyDisplay();checkAchievements();
 },200);
 
-setInterval(()=>updateMoneyDisplay(),1000);
+setInterval(()=>{
+  updateMoneyDisplay();
+  updateEnergyDisplay();
+  updateFlashBanner();
+  updateDealsTimer();
+},1000);
+
+setInterval(()=>tryTriggerFlash(),10000);
 setInterval(saveState,15000);
+setInterval(()=>updateSeasonDisplay(),60000);
+
 document.addEventListener('visibilitychange',()=>{if(document.hidden)saveState();});
 window.addEventListener('pagehide',saveState);
 window.addEventListener('beforeunload',saveState);
 
 // ════════════════════════════════════════════════════════
-// BG PARTICLES (shared between login + game)
+// BG PARTICLES
 // ════════════════════════════════════════════════════════
 function initParticles(canvasId){
   const c=document.getElementById(canvasId),x=c.getContext('2d');
